@@ -18,4 +18,12 @@ export class PatientModel {
     )
     return patients
   }
+
+  static async getById ({ id }) {
+    const [patient] = await connection.query(
+        `SELECT BIN_TO_UUID(id) as id, first_name, family_name, address, phone_number, details 
+        FROM patient WHERE BIN_TO_UUID(id) = ?`, [id]
+    )
+    return patient
+  }
 }
