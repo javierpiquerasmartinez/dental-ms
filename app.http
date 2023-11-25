@@ -2,4 +2,16 @@
 GET http://localhost:3000/patients
 
 ### GET patient by id
-GET  http://localhost:3000/patients/ecc39452-8acf-11ee-bdf1-82976f68bc77
+GET  http://localhost:3000/patients/ecc39452-8acf-11ee-bdf1-82976f68bc76
+
+### POST patient
+POST  http://localhost:3000/patients
+Content-Type: application/json
+
+{
+    "firstName": "Lucas Octavio",
+    "familyName": "Fernandez Marquez",
+    "phoneNumber": "+34600000001",
+    "address": "lofernandez@gmail.com",
+    "details": "Historial"
+}

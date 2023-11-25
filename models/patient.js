@@ -20,10 +20,34 @@ export class PatientModel {
   }
 
   static async getById ({ id }) {
-    const [patient] = await connection.query(
+    try {
+      const [patient] = await connection.query(
+            `SELECT BIN_TO_UUID(id) as id, first_name, family_name, address, phone_number, details 
+            FROM patient WHERE BIN_TO_UUID(id) = ?`, [id]
+      )
+      return patient
+    } catch (e) {
+      console.error(e)
+      return false
+    }
+  }
+
+  // TODO: Error handling
+  static async create ({ firstName, familyName, address, phoneNumber, details }) {
+    try {
+      const [[{ id }]] = await connection.query(`
+            SELECT UUID() as id;
+        `)
+      await connection.query(`
+        INSERT INTO patient (id, first_name, family_name, address, phone_number, details) VALUES
+        (UUID_TO_BIN(?), ?, ?, ?, ?, ?);`, [id, firstName, familyName, address, phoneNumber, details])
+      const [patient] = await connection.query(
         `SELECT BIN_TO_UUID(id) as id, first_name, family_name, address, phone_number, details 
-        FROM patient WHERE BIN_TO_UUID(id) = ?`, [id]
-    )
-    return patient
+        FROM patient WHERE BIN_TO_UUID(id) = ?`, [id])
+      return patient
+    } catch (e) {
+      console.error(e)
+      return false
+    }
   }
 }

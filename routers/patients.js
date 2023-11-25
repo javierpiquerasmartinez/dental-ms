@@ -8,7 +8,7 @@ export const createPatientsRouter = ({ patientModel }) => {
   patientsRouter.get('/', patientsController.getAll)
   patientsRouter.get('/:id', patientsController.getById)
 
-  // patientsRouter.post('/', patientsController.create)
+  patientsRouter.post('/', patientsController.create)
 
   // patientsRouter.patch('/:id', patientsController.update)
 
