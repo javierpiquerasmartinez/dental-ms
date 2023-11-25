@@ -12,7 +12,7 @@ export const createPatientsRouter = ({ patientModel }) => {
 
   patientsRouter.patch('/:id', patientsController.update)
 
-  // patientsRouter.delete('/:id', patientsController.delete)
+  patientsRouter.delete('/:id', patientsController.delete)
 
   return patientsRouter
 }

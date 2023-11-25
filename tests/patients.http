@@ -23,3 +23,6 @@ Content-Type: application/json
 {
     "phoneNumber": "+34600000005"
 }
+
+### DELETE patient
+DELETE http://localhost:3000/patients/06f50c38-8b85-11ee-923c-04722f986d57

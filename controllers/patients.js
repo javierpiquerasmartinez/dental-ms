@@ -32,6 +32,16 @@ export class PatientsController {
     // TODO: Validate patient data
     const newPatientData = { ...previousPatientData, ...req.body }
     await this.patientModel.update(newPatientData)
-    res.status(200).send()
+    res.status(204).send()
+  }
+
+  delete = async (req, res) => {
+    const { id } = req.params
+    const [previousPatientData] = await this.patientModel.getById({ id })
+    if (!previousPatientData) {
+      return res.status(404).json({ err: 'Patient not found' })
+    }
+    await this.patientModel.delete({ id })
+    res.status(204).send()
   }
 }

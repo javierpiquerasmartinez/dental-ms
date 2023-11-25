@@ -12,6 +12,8 @@ const connectionString = process.env.DATABASE_URL ?? DEFAULT_CONFIG
 const connection = await mysql.createConnection(connectionString)
 
 export class PatientModel {
+  // TODO: Patient exists()
+
   static async getAll () {
     const [patients] = await connection.query(
       'SELECT BIN_TO_UUID(id) as id, first_name as firstName, family_name as familyName, address as address, phone_number as phoneNumber, details as details FROM patient;'
@@ -57,6 +59,18 @@ export class PatientModel {
           UPDATE patient 
           SET first_name = ?, family_name = ?, address = ?, phone_number = ?, details = ?
           WHERE BIN_TO_UUID(id) = ?`, [firstName, familyName, address, phoneNumber, details, id])
+      return true
+    } catch (e) {
+      console.error(e)
+      return false
+    }
+  }
+
+  static async delete ({ id }) {
+    try {
+      await connection.query(`
+            DELETE FROM patient 
+            WHERE BIN_TO_UUID(id) = ?`, [id])
       return true
     } catch (e) {
       console.error(e)
