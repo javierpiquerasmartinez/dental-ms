@@ -10,7 +10,7 @@ export const createPatientsRouter = ({ patientModel }) => {
 
   patientsRouter.post('/', patientsController.create)
 
-  // patientsRouter.patch('/:id', patientsController.update)
+  patientsRouter.patch('/:id', patientsController.update)
 
   // patientsRouter.delete('/:id', patientsController.delete)
 

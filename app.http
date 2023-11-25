@@ -2,7 +2,7 @@
 GET http://localhost:3000/patients
 
 ### GET patient by id
-GET  http://localhost:3000/patients/ecc39452-8acf-11ee-bdf1-82976f68bc76
+GET  http://localhost:3000/patients/b12a40dc-8b27-11ee-ba20-1295b4c7c998
 
 ### POST patient
 POST  http://localhost:3000/patients
@@ -14,4 +14,12 @@ Content-Type: application/json
     "phoneNumber": "+34600000001",
     "address": "lofernandez@gmail.com",
     "details": "Historial"
+}
+
+### PATCH (update) Patient
+PATCH http://localhost:3000/patients/b12a40dc-8b27-11ee-ba20-1295b4c7c998
+Content-Type: application/json
+
+{
+    "phoneNumber": "+34600000005"
 }

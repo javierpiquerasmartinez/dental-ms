@@ -20,6 +20,16 @@ export class PatientsController {
   create = async (req, res) => {
     const { firstName, familyName, address, phoneNumber, details } = req.body
     const patient = await this.patientModel.create({ firstName, familyName, address, phoneNumber, details })
-    res.json(patient)
+    res.status(201).json(patient)
+  }
+
+  update = async (req, res) => {
+    // TODO: Validate if patient exists
+    // TODO: Validate patient data
+    const { id } = req.params
+    const [previousPatientData] = await this.patientModel.getById({ id })
+    const newPatientData = { ...previousPatientData, ...req.body }
+    await this.patientModel.update(newPatientData)
+    res.status(200).send()
   }
 }
