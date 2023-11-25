@@ -10,8 +10,8 @@ export class PatientsController {
 
   getById = async (req, res) => {
     const { id } = req.params
-    const patient = await this.patientModel.getById({ id })
-    if (patient.length === 0) {
+    const [patient] = await this.patientModel.getById({ id })
+    if (!patient) {
       return res.status(404).json({ err: 'Patient not found' })
     }
     res.json(patient)
@@ -24,10 +24,12 @@ export class PatientsController {
   }
 
   update = async (req, res) => {
-    // TODO: Validate if patient exists
-    // TODO: Validate patient data
     const { id } = req.params
     const [previousPatientData] = await this.patientModel.getById({ id })
+    if (!previousPatientData) {
+      return res.status(404).json({ err: 'Patient not found' })
+    }
+    // TODO: Validate patient data
     const newPatientData = { ...previousPatientData, ...req.body }
     await this.patientModel.update(newPatientData)
     res.status(200).send()
